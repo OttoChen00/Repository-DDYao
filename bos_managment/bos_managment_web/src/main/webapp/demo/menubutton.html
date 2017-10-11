@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- 导入jquery核心类库 -->
+<script type="text/javascript" src="../js/jquery-1.8.3.js"></script>
+<!-- 导入easyui类库 -->
+<link id="easyuiTheme" rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="../css/default.css">
+<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+	function alert_info() {
+		$.messager.alert('我的消息', '这是一个提示信息！', 'warning');
+	}
+
+	function confrim() {
+		$.messager.confirm('确认对话框', '您想要退出该系统吗？', function(r) {
+			if (r) {
+				// 退出操作;
+				alert_info();
+			} else {
+				alert("🐎");
+			}
+		});
+	}
+
+	function promote() {
+		$.messager.prompt('提示信息', '请输入你的姓名：', function(r) {
+			if (r) {
+				alert('你的姓名是：' + r);
+			}
+		});
+	}
+
+	function progress() {
+		var win = $.messager.progress({
+			title : 'Please waiting',
+			msg : 'Loading data...'
+		});
+		setTimeout(function() {
+			$.messager.progress('close');
+		}, 1000)
+	}
+
+	function show() {
+		$.messager.show({
+			title : '我的消息',
+			msg : '消息将在5秒后关闭。',
+			timeout : 1000,
+			showType : 'fade',
+			style : {
+				right : '',
+				top : document.body.scrollTop
+						+ document.documentElement.scrollTop,
+				bottom : ''
+			}
+		});
+	}
+</script>
+</head>
+<body>
+	<a href="javascript:void(0)" id="mb" class="easyui-menubutton" data-options="menu:'#mm',iconCls:'icon-edit'">Edit</a>
+	<div id="mm" style="width: 150px;">
+		<div data-options="iconCls:'icon-undo'">Undo</div>
+		<div data-options="iconCls:'icon-redo'">Redo</div>
+		<div class="menu-sep"></div>
+		<div>Cut</div>
+		<div>Copy</div>
+		<div>Paste</div>
+		<div class="menu-sep"></div>
+		<div data-options="iconCls:'icon-remove'">Delete</div>
+		<div>Select All</div>
+	</div>
+
+	<!-- <div id="win" class="easyui-window" title="My Window" style="width: 600px; height: 400px" data-options="iconCls:'icon-save',modal:true">
+		<div class="easyui-layout" data-options="fit:true">
+			<div data-options="region:'north',split:true" style="height: 100px"></div>
+			<div data-options="region:'center'">The Content.</div>
+		</div>
+	</div> -->
+
+	<a id="btn" href="#" onclick="alert_info()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">easyui</a>
+	<a id="btn" href="#" onclick="confrim()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">确认</a>
+	<a id="btn" href="javascript:void(0)" onclick="promote()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">输入框</a>
+	<a id="btn" href="javascript:void(0)" onclick="progress()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">显示进度条</a>
+	<a id="btn" href="javascript:void(0)" onclick="show()" class="easyui-linkbutton" data-options="iconCls:'icon-search'">显示消息</a>
+</body>
+</html>
