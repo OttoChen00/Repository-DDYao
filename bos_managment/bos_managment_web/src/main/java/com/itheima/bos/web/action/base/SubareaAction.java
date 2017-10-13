@@ -1,8 +1,10 @@
 package com.itheima.bos.web.action.base;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
+import com.alibaba.fastjson.JSON;
+import org.apache.commons.lang.ArrayUtils;
 import org.apache.struts2.convention.annotation.Action;
 import org.apache.struts2.convention.annotation.Namespace;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -62,5 +64,31 @@ public class SubareaAction extends BaseAction<SubArea> {
     list2json(list, new String[]{"id","keyWords"}, false);
     return NONE;
   }
+
+  @Action(value = "subAreaAction_doAnalysis")
+  public String doAnalysis() throws IOException{
+      List<Object[]> list = subareaService.findSubAreaByProvince();
+      list2json(list,null,false);
+    return NONE;
+  }
+
+    @Action(value = "subAreaAction_doAnalysis02")
+    public String doAnalysis02() throws IOException{
+        List<Object[]> list = subareaService.findSubAreaByProvince();
+
+        List<Map<String, Object[]>> mapList = new ArrayList<>();
+
+        for (Object[] arr:list
+                ) {
+            HashMap<String, Object[]> map = new HashMap<>();
+            map.put("name",new Object[]{arr[0]});
+            map.put("data",new Object[]{arr[1]});
+            mapList.add(map);
+        }
+        System.out.println(mapList.toString());
+
+        list2json(mapList,null,false);
+        return NONE;
+    }
 }
 

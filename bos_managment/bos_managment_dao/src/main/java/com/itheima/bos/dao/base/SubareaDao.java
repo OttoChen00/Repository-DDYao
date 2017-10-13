@@ -1,6 +1,7 @@
 package com.itheima.bos.dao.base;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -22,7 +23,10 @@ public interface SubareaDao extends JpaRepository<SubArea, String> {
   @Modifying
   @Query(value="update t_sub_area set c_fixedarea_id=null where c_fixedarea_id = ?",nativeQuery=true)
   void setFixAreaNullById(String id);
-  
+
   List<SubArea> findByIdIn(List<String> id);
+
+    @Query("select a.province as name,count(a.province) as data from SubArea s  inner join s.area a group by a.province")
+    List<Object[]> countSubAreaByProvince();
 
 }

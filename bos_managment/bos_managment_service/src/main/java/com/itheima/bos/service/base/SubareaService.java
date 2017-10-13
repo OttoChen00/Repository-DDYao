@@ -22,5 +22,7 @@ public interface SubareaService {
 
   List<SubArea> findAssociatedSubArea(String id);
 
+  List<Object[]> findSubAreaByProvince();
+
 }
   

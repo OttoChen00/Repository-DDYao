@@ -14,7 +14,10 @@
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.portal.js"></script>
 		<script type="text/javascript" src="../../js/easyui/ext/jquery.cookie.js"></script>
 		<script src="../../js/easyui/locale/easyui-lang-zh_CN.js" type="text/javascript"></script>
-		<script type="text/javascript" src="../../js/highcharts/highcharts.js"></script>
+		<script src="../../js/highcharts/highcharts.js"></script>
+		<script src="../../js/highcharts/modules/offline-exporting.js"></script>
+		<script src="../../js/highcharts/highcharts-plugins/highcharts-zh_CN.js"></script>
+
 		<script type="text/javascript">
 			function doAdd(){
 				$('#addWindow').window("open");
@@ -34,15 +37,125 @@
 			
 			//导出按钮绑定的事件
 			function doExport(){
-				
+                alert("导出");
 			}
 			
 			function doImport(){
 				alert("导入");
 			}
-			
+
+			// 查看饼状图
+			function doAnalysis() {
+				//alert("查看分布图");
+				$.post("../../subAreaAction_doAnalysis.action",function (data) {
+				    console.log(data);
+					$("#chartWindow").window('open');
+                    /*$('#container').highcharts({
+                        chart: {
+                            type: 'pie'
+                        },
+                        name: '浏览器访问量占比',
+                        title: {
+                            text: '分区分布图'
+                        },
+                        series: data
+                    });*/
+                    $('#container').highcharts({
+                        chart: {
+                            plotBackgroundColor: null,
+                            plotBorderWidth: null,
+                            plotShadow: false
+                        },
+                        title: {
+                            text: '2014 某网站各浏览器浏览量占比'
+                        },
+                        tooltip: {
+                            headerFormat: '{series.name}<br>',
+                            pointFormat: '{point.name}: <b>{point.percentage:.1f}%</b>'
+                        },
+                        plotOptions: {
+                            pie: {
+                                allowPointSelect: true,
+                                cursor: 'pointer',
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                                    style: {
+                                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                                    }
+                                }
+                            }
+                        },
+                        series: [{
+                            type: 'pie',
+                            name: '浏览器访问量占比',
+                            data: data/*[
+                                ['Firefox',   45.0],
+                                ['IE',       26.8],
+                                {
+                                    name: 'Chrome',
+                                    y: 12.8,
+                                    sliced: true,
+                                    selected: true
+                                },
+                                ['Safari',    8.5],
+                                ['Opera',     6.2],
+                                ['其他',   0.7]
+                            ]*/
+                        }]
+                    });
+                },"json");
+            }
+
+            // 查看饼状图
+            function doAnalysis02() {
+                $.post("../../subAreaAction_doAnalysis02.action",function (data) {
+                    console.log(data);
+                    $("#chartWindow02").window('open');
+                    $('#container02').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: '分区分布'
+                        },
+                        xAxis: {
+                            categories: [
+                                '数量'
+                            ],
+                            crosshair: true
+                        },
+                        /*subtitle: {
+                            text: '数据来源: WorldClimate.com'
+                        },
+
+                        yAxis: {
+                            min: 0,
+                            title: {
+                                text: '降雨量 (mm)'
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                            footerFormat: '</table>',
+                            shared: true,
+                            useHTML: true
+                        },
+                        plotOptions: {
+                            column: {
+                                pointPadding: 0.2,
+                                borderWidth: 0
+                            }
+                        },*/
+                        series: data
+                    });
+                },"json");
+            }
+
 			//工具栏
-			var toolbar = [ {
+            var toolbar = [ {
 				id : 'button-search',	
 				text : '查询',
 				iconCls : 'icon-search',
@@ -72,7 +185,19 @@
 				text : '导出',
 				iconCls : 'icon-undo',
 				handler : doExport
-			}];
+			},{
+                id : 'button-export',
+                text : '查看分区统计',
+                iconCls : 'icon-help',
+                handler : doAnalysis
+            },{
+                id : 'button-export',
+                text : '查看分区统计柱状',
+                iconCls : 'icon-help',
+                handler : doAnalysis02
+            }];
+
+
 			// 定义列
 			var columns = [ [ {
 				field : 'id',
@@ -177,13 +302,22 @@
 			    });
 				
 				$('#chartWindow').window({
-			        width: 700,
-			        modal: true,
-			        shadow: true,
-			        closed: true,
-			        height: 600,
-			        resizable:false
-			    });
+                    width: 700,
+                    modal: true,
+                    shadow: true,
+                    closed: true,
+                    height: 600,
+                    resizable:false
+                });
+
+                $('#chartWindow02').window({
+                    width: 700,
+                    modal: true,
+                    shadow: true,
+                    closed: true,
+                    height: 600,
+                    resizable:false
+                });
 				
 				// 查询分区
 				$('#searchWindow').window({
@@ -213,6 +347,9 @@
 				}
 			}
 		</script>
+
+
+
 	</head>
 
 	<body class="easyui-layout" style="visibility:hidden;">
@@ -289,6 +426,11 @@
 		<div class="easyui-window" title="分区分布图" id="chartWindow" collapsible="false" 
 				minimizable="false" maximizable="false" style="top:20px;left:200px">
 			<div id="container"></div>
+		</div>
+
+		<div class="easyui-window" title="分区分布柱状图" id="chartWindow02" collapsible="false"
+			 minimizable="false" maximizable="false" style="top:20px;left:200px">
+			<div id="container02"></div>
 		</div>
 		
 		<!-- 查询分区 -->

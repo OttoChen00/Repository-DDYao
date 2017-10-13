@@ -1,18 +1,17 @@
 package com.itheima.middleware.utils;
 
+import org.junit.jupiter.api.Test;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.junit.Test;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * ClassName:smsService <br/>
@@ -27,7 +26,7 @@ public class smsService {
   public static String sendSms(String mobiles, String msg, String time) {
     return sendSms(userid, pass, mobiles, msg, time);
   }
-  
+
   @Test
   public void test_01() {
     String sms = sendSms("szitcast1", "szitcast", "15014098249", "尊敬的客户你好，您本次获取的验证码为：1234", "");

@@ -20,10 +20,10 @@ import com.itheima.bos.service.base.SubareaService;
 @Service
 @Transactional
 public class SubareaServiceImpl implements SubareaService {
-  
+
   @Autowired
   private SubareaDao subareaDao;
-  
+
   @Override
   public void save(SubArea model) {
     subareaDao.save(model);
@@ -42,6 +42,11 @@ public class SubareaServiceImpl implements SubareaService {
   @Override
   public List<SubArea> findAssociatedSubArea(String id) {
     return subareaDao.findByfixedAreaId(id);
+  }
+
+  @Override
+  public List<Object[]> findSubAreaByProvince() {
+    return subareaDao.countSubAreaByProvince();
   }
 
 }
