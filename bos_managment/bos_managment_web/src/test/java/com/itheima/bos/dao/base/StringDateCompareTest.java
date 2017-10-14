@@ -10,7 +10,6 @@ import org.junit.Test;
 public class StringDateCompareTest {
     @Test
     public void test_01() {
-        // TODO Auto-generated method stub
         String str1 = "14:00";
         String str2 = "15:10";
         int res = str1.compareTo(str2);
