@@ -35,7 +35,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public void save(Role role, String menuIds, Integer[] permissionIds) {
-          roleDao.save(role);
+
           
           //角色和菜单建立联系，创建一脱管态菜单，再建立联系。
           if (StringUtils.isNotEmpty(menuIds)) {
@@ -55,6 +55,8 @@ public class RoleServiceImpl implements RoleService {
                 role.getPermissions().add(permission);
               }
           }
+
+        roleDao.save(role);
     }
 }
   

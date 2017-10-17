@@ -49,6 +49,11 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> findByUser(User user) {
         return menuDao.findByUserId(user.getId());
     }
-    
+
+    @Override
+    public List<Menu> findByRoleId(Integer id) {
+        return menuDao.findByRoleId(id);
+    }
+
 }
   

@@ -18,6 +18,7 @@ import com.itheima.bos.domain.system.Permission;
 import com.itheima.bos.domain.system.Permission;
 import com.itheima.bos.service.system.PermissionService;
 import com.itheima.bos.web.action.common.BaseAction;
+import org.springframework.ui.Model;
 
 /**  
  * ClassName:PermissionAction <br/>  
@@ -56,5 +57,11 @@ public class PermissionAction extends BaseAction<Permission>{
         return SUCCESS;
     }
 
+    @Action(value = "permissionAction_findByRoleId")
+    public String findByRoleId() throws IOException {
+        List<Permission> list = permissionService.findByRoleId(getModel().getId());
+        list2json(list, new String[]{"id","name"}, false);
+        return NONE;
+    }
 }
   

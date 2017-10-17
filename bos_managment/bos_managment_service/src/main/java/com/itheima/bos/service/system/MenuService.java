@@ -25,5 +25,6 @@ public interface MenuService {
 
     List<Menu> findByUser(User user);
 
+    List<Menu> findByRoleId(Integer id);
 }
   

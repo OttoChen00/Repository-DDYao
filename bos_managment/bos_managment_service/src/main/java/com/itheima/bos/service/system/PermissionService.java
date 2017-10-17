@@ -20,5 +20,6 @@ public interface PermissionService {
 
     List<Permission> findAll();
 
+    List<Permission> findByRoleId(Integer id);
 }
   

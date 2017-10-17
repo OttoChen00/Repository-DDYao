@@ -39,5 +39,10 @@ public class PermissionServiceImpl implements PermissionService{
         return permissionDao.findAll();
     }
 
+    @Override
+    public List<Permission> findByRoleId(Integer id) {
+        return permissionDao.findByRoleId(id);
+    }
+
 }
   

@@ -14,8 +14,10 @@ import com.itheima.bos.domain.system.Permission;
  */
 public interface PermissionDao extends JpaRepository<Permission, Integer> {
     
-    @Query("select p from Permission p inner join p.roles r inner join r.users u where u.id = ?")
+    @Query("select p from Permission p inner join p.roles r inner join r.users u where u.id = ?1")
     List<Permission> findByUserId(int id);
 
+    @Query("select p from Permission p inner join p.roles r  where r.id = ?1")
+    List<Permission> findByRoleId(int id);
 }
   

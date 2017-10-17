@@ -86,5 +86,12 @@ public class MenuAction extends BaseAction<Menu> {
         list2json2(list, new String[]{"children","roles","parentMenu","text"});
         return NONE;
     }
+
+    @Action(value = "menuAction_findByRoleId")
+    public String findByRoleId() throws IOException {
+        List<Menu> list = menuService.findByRoleId(getModel().getId());
+        list2json(list,new String[]{"id"},false);
+        return NONE;
+    }
 }
 
